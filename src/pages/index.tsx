@@ -1,36 +1,40 @@
-/* eslint-disable prettier/prettier */
 /* pages/index.js */
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { client, challenge, authenticate } from '../api'
 import Link from 'next/link'
-import { exploreProfiles } from '../queries/profiles'
+import { exploreProfiles } from '../modules/profile/profiles'
+import Header from '../modules/header/components/header'
 
 export default function Home() {
   /* local state variables to hold user's address and access token */
-  const [address, setAddress] = useState()
+  const [address, setAddress] = useState<string>()
   const [token, setToken] = useState()
   /* create initial state to hold array of profiles */
   const [profiles, setProfiles] = useState<any[]>([])
+
   useEffect(() => {
     fetchProfiles()
     checkConnection()
   }, [])
-  async function checkConnection() {
+
+  const checkConnection = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const accounts = await provider.listAccounts()
     if (accounts.length) {
       setAddress(accounts[0])
     }
   }
-  async function connect() {
+
+  const connect = async () => {
     /* this allows the user to connect their wallet */
     const account = await window.ethereum.send('eth_requestAccounts')
     if (account.result.length) {
       setAddress(account.result[0])
     }
   }
-  async function login() {
+
+  const login = async () => {
     try {
       /* first request the challenge from the API server */
       const challengeInfo = await client.query({
@@ -61,7 +65,8 @@ export default function Home() {
       console.log('Error signing in: ', err)
     }
   }
-  async function fetchProfiles() {
+
+  const fetchProfiles = async () => {
     try {
       /* fetch profiles from Lens API */
       const response = await client.query({ query: exploreProfiles })
@@ -91,8 +96,9 @@ export default function Home() {
       console.log({ err })
     }
   }
+
   return (
-    <div className="pt-20">
+    <div className="container m-auto max-w-full pt-4">
       <div className="flex flex-col justify-center items-center">
         <div>
           {/* if the user has not yet connected their wallet, show a connect button */}

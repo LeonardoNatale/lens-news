@@ -1,11 +1,10 @@
-/* pages/profile/[handle].tsx */
-import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useCallback, useEffect, useState } from 'react'
 import { client } from '../../api'
-import { getProfile } from '../../queries/get-profile'
-import { getPublications } from '../../queries/get-publications'
+import { getProfile } from './get-profile'
+import { getPublications } from './get-publications'
 
-export default function Profile() {
+export const useProfile = () => {
   /* create initial state to hold user profile and array of publications */
   const [profile, setProfile] = useState<any>()
   const [publications, setPublications] = useState<any[]>([])
@@ -13,13 +12,7 @@ export default function Profile() {
   const router = useRouter()
   const { handle } = router.query
 
-  useEffect(() => {
-    if (handle) {
-      fetchProfile()
-    }
-  }, [handle])
-
-  async function fetchProfile() {
+  const fetchProfile = useCallback(async () => {
     try {
       /* fetch the user profile using their handle */
       const returnedProfile = await client.query({
@@ -31,7 +24,7 @@ export default function Profile() {
       const picture = profileData.picture
       if (picture && picture.original && picture.original.url) {
         if (picture.original.url.startsWith('ipfs://')) {
-          let result = picture.original.url.substring(7, picture.original.url.length)
+          const result = picture.original.url.substring(7, picture.original.url.length)
           profileData.avatarUrl = `http://lens.infura-ipfs.io/ipfs/${result}`
         } else {
           profileData.avatarUrl = profileData.picture.original.url
@@ -50,22 +43,13 @@ export default function Profile() {
     } catch (err) {
       console.log('error fetching profile...', err)
     }
-  }
+  }, [handle])
 
-  if (!profile) return null
+  useEffect(() => {
+    if (handle) {
+      fetchProfile()
+    }
+  }, [handle, fetchProfile])
 
-  return (
-    <div className="pt-20">
-      <div className="flex flex-col justify-center items-center">
-        <img className="w-64 rounded-full" src={profile.avatarUrl} />
-        <p className="text-4xl mt-8 mb-8">{profile.handle}</p>
-        <p className="text-center text-xl font-bold mt-2 mb-2 w-1/2">{profile.bio}</p>
-        {publications.map((pub) => (
-          <div key={pub.id} className="shadow p-10 rounded mb-8 w-2/3">
-            <p>{pub.metadata.content}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  return { profile, publications }
 }
