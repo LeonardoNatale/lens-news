@@ -1,7 +1,8 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import { ethers } from 'ethers'
-import { client, challenge, authenticate } from '../../api'
 import { AuthContext } from './type'
+import { authenticate, challenge } from './queries'
+import { client } from '../../pages/_app'
 
 const AuthContext = createContext<AuthContext>({
   address: '',

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
-import { client } from '../../api'
+import { client } from '../../pages/_app'
 import { getProfile } from './get-profile'
 import { getPublications } from './get-publications'
 

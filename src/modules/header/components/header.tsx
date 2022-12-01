@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Newspaper, UserCircle } from 'phosphor-react'
 import { useAuth } from '../../auth/auth-provider'
+import Image from 'next/image'
 
 const Header = () => {
   const { address, token, connect, login } = useAuth()
@@ -16,6 +17,9 @@ const Header = () => {
           {/* if the user has not yet connected their wallet, show a connect button */}
           {!address && <button onClick={connect}>Connect</button>}
           {/* if the user has connected their wallet but has not yet authenticated, show them a login button */}
+          {address && !token && (
+            <Image src="/metamask.png" alt="metamask logo" width={32} height={32} />
+          )}
           {address && !token && <button onClick={login}>Login</button>}
           {/* once the user has authenticated, show them a success message */}
           {address && token && <h2>Logged in</h2>}
