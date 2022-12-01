@@ -23,7 +23,9 @@ const Header = () => {
           {address && !token && <button onClick={login}>Login</button>}
           {/* once the user has authenticated, show them a success message */}
           {address && token && <h2>Logged in</h2>}
-          <UserCircle size={60} />
+          <Link href="/profile/profiles" className="flex gap-2 items-center">
+            <UserCircle size={60} />
+          </Link>
         </div>
       </div>
     </header>
