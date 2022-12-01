@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Newspaper, UserCircle } from 'phosphor-react'
+import { Newspaper, UserCircle, Plus } from 'phosphor-react'
 import { useAuth } from '../../auth/auth-provider'
 import Image from 'next/image'
 
@@ -12,6 +12,10 @@ const Header = () => {
         <Link href="/" className="flex gap-2 items-center">
           <Newspaper size={60} weight="bold" />
           <h1>Lens News</h1>
+        </Link>
+        <Link href="/profile/create" className="flex gap-2 items-center">
+          <Plus size={20} weight="bold" />
+          <h1>New profile</h1>
         </Link>
         <div className="flex gap-2 items-center">
           {/* if the user has not yet connected their wallet, show a connect button */}
