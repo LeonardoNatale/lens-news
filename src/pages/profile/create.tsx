@@ -13,6 +13,7 @@ const Create = () => {
   const [createProfile, { data, loading, error }] = useMutation(CREATE_PROFILE)
 
   const onChangeHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
+    console.log(e.target.name)
     const { name, value } = e.target
 
     setFormData({
@@ -23,6 +24,7 @@ const Create = () => {
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault()
+    console.log(formData)
     try {
       await createProfile({
         variables: {
@@ -63,12 +65,12 @@ const Create = () => {
           onChange={onChangeHandle}
         />
 
-        <label htmlFor="picture">Profile picture url</label>
+        <label htmlFor="profilePictureUri">Profile picture url</label>
         <input
           className="rounded-sm p-1"
           type="url"
-          id="picture"
-          name="picture"
+          id="profilePictureUri"
+          name="profilePictureUri"
           required
           value={formData?.profilePictureUri}
           onChange={onChangeHandle}
