@@ -5,7 +5,7 @@ const EditForm = (props: any) => {
   // Set the initial editing state to false
 
   return (
-    <div className="w-full max-w-sm bg-slate-100 p-6">
+    <div className="w-full max-w-sm bg-slate-100 p-6 rounded-lg">
       <form className="flex flex-col gap-4 ">
         <div>
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
