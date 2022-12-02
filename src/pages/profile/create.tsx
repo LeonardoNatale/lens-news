@@ -45,7 +45,7 @@ const Create = () => {
   }
 
   return (
-    <div className="w-60 m-auto flex flex-col justify-center items-center p-4 gap-10 bg-green-400 rounded-lg">
+    <div className="w-60 m-auto flex flex-col justify-center items-center p-6 gap-10 bg-slate-100 rounded-lg">
       <h1>CREATE PROFILE</h1>
       <form
         action="/api/form"

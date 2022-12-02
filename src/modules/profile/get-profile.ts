@@ -14,6 +14,7 @@ export const getProfile = gql`
         }
       }
       handle
+      ownedBy
     }
   }
 `

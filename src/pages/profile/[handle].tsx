@@ -1,12 +1,22 @@
 /* pages/profile/[handle].tsx */
+import { useState } from 'react'
+import { useAuth } from '../../modules/auth/auth-provider'
+import EditForm from '../../modules/profile/components/EditForm'
 import { useProfile } from '../../modules/profile/hooks'
 
 const Profile = () => {
   const { profile, publications } = useProfile()
+  const { address } = useAuth()
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+
+  const handleEditOrCancel = () => {
+    setIsEditing((isEditing) => !isEditing)
+  }
 
   if (!profile) {
     return null
   }
+
   return (
     <div className="pt-20">
       <div className="flex flex-col justify-center items-center">
@@ -18,6 +28,16 @@ const Profile = () => {
             <p>{pub.metadata.content}</p>
           </div>
         ))}
+        {profile.ownedBy === address && isEditing ? (
+          <EditForm onCancel={handleEditOrCancel} />
+        ) : (
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handleEditOrCancel}
+          >
+            Edit
+          </button>
+        )}
       </div>
     </div>
   )
