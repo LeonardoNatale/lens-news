@@ -3,8 +3,9 @@
 import { ChangeEventHandler, FormEvent, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { CREATE_PROFILE } from '../../modules/profile/create-profile'
-import { CreateProfileRequest } from './type'
 import { useAuth } from '../../modules/auth/auth-provider'
+import { CreateProfileRequest } from '../../modules/profile/profile.type'
+import { generateContext } from '../../modules/auth/utils'
 
 const Create = () => {
   const { token } = useAuth()
@@ -12,8 +13,15 @@ const Create = () => {
 
   const [createProfile, { data, loading, error }] = useMutation(CREATE_PROFILE)
 
+  if (loading) {
+    return (
+      <div>
+        <p>Loading</p>
+      </div>
+    )
+  }
+
   const onChangeHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log(e.target.name)
     const { name, value } = e.target
 
     setFormData({
@@ -33,11 +41,7 @@ const Create = () => {
             profilePictureUri: formData?.profilePictureUri
           }
         },
-        context: {
-          headers: {
-            'x-access-token': token
-          }
-        }
+        ...generateContext(token)
       })
 
       console.log(data)
@@ -50,7 +54,7 @@ const Create = () => {
     <div className="w-60 m-auto flex flex-col justify-center items-center p-6 gap-10 bg-slate-100 rounded-lg">
       <h1>CREATE PROFILE</h1>
       <form
-        action="/api/form"
+        // action="/api/form"
         onSubmit={onSubmitHandler}
         className=" flex flex-col gap-2"
       >

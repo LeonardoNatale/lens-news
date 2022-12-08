@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { PINATA_JWT } from '../../config'
+import { PINATA_JWT } from '../../common/config'
 import { PinataResponse } from './ipfs.type'
 
 export const pinJsonToPinata = async <T>(data: T): Promise<PinataResponse> => {

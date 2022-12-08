@@ -27,7 +27,7 @@ const Create = () => {
           className="w-2/3 shadow-md p-6 rounded-lg mb-8 flex flex-col items-center"
         >
           <img className="w-48" src={profile.picture || 'https://picsum.photos/200'} />
-          <p className="text-xl text-center mt-6">{profile.name}</p>
+          <p className="text-xl text-center mt-6">{`Name: ${profile.name}`}</p>
           <Link href={`/profile/${profile.handle}`}>
             <p className="text-xl text-center mt-6">{`Handle: ${profile.handle}`}</p>
           </Link>
