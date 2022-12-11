@@ -1,11 +1,11 @@
-/* pages/profiles/create.tsx */
+/* pages/profiles/profiles.tsx */
 
 import { PROFILES } from '../../modules/profile/get-profiles'
 import { useQuery } from '@apollo/client'
 import { useAuth } from '../../modules/auth/auth-provider'
 import Link from 'next/link'
 
-const Create = () => {
+const Profiles = () => {
   const { address } = useAuth()
 
   const { data, loading, error } = useQuery(PROFILES, { variables: { ownedBy: address } })
@@ -46,4 +46,4 @@ const Create = () => {
   )
 }
 
-export default Create
+export default Profiles

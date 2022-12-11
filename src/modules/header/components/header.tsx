@@ -13,10 +13,6 @@ const Header = () => {
           <Newspaper size={60} weight="bold" />
           <h1>Lens News</h1>
         </Link>
-        <Link href="/profile/create" className="flex gap-2 items-center">
-          <Plus size={20} weight="bold" />
-          <h1>New profile</h1>
-        </Link>
         <div className="flex gap-2 items-center">
           {/* if the user has not yet connected their wallet, show a connect button */}
           {!address && <button onClick={connect}>Connect</button>}
