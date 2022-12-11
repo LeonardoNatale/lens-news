@@ -16,6 +16,13 @@ const Header = () => {
         <div className="flex gap-2 items-center">
           {/* if the user has not yet connected their wallet, show a connect button */}
           {!address && <button onClick={connect}>Connect</button>}
+          {address && token && (
+            <h2>
+              <Link href="/article/publish" className="flex gap-2 items-center">
+                + Publish Article
+              </Link>
+            </h2>
+          )}
           {/* if the user has connected their wallet but has not yet authenticated, show them a login button */}
           {address && !token && (
             <Image src="/metamask.png" alt="metamask logo" width={32} height={32} />
