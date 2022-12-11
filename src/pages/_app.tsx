@@ -4,7 +4,7 @@ import Header from '../modules/header/components/header'
 import { AuthProvider } from '../modules/auth/auth-provider'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
-const API_URL = 'https://api.lens.dev'
+const API_URL = 'https://api-mumbai.lens.dev'
 
 /* create the API client */
 export const client = new ApolloClient({
