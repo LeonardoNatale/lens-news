@@ -6,7 +6,7 @@ const Feed = () => {
   const { data, loading, error } = useQuery(EXPLORE_ARTICLES, {
     variables: {
       request: {
-        sortCriteria: 'CURATED_PROFILES',
+        sortCriteria: 'LATEST',
         limit: 32,
         noRandomize: false,
         publicationTypes: ['POST'],

@@ -10,7 +10,7 @@ import * as _ from 'lodash'
 
 const EditForm = (props: any) => {
   const { token } = useAuth()
-  const [formData, setFormData] = useState<any>({ title: '', content: '' })
+  const [formData, setFormData] = useState<any>({ name: '', content: '' })
 
   const [createPublication, { data, loading, error }] = useMutation(CREATE_PUBLICATION)
 
@@ -33,14 +33,10 @@ const EditForm = (props: any) => {
     const ipfsResult = await pinJsonToPinata<PublicationMetadata>(publicationMetadata)
 
     const createPublicationRequest = {
-      profileId: props.profileId,
+      profileId: '0x5a58', //props.profileId,
       contentURI: `ipfs://${ipfsResult.IpfsHash}`,
-      collectModule: {
-        revertCollectModule: true
-      },
-      referenceModule: {
-        followerOnlyReferenceModule: false
-      }
+      collectModule: { freeCollectModule: { followerOnly: false } },
+      referenceModule: { followerOnlyReferenceModule: false }
     }
 
     // the result goes into the variable "data"
@@ -56,31 +52,25 @@ const EditForm = (props: any) => {
     <div className="w-full max-w-sm bg-slate-100 p-6 rounded-lg">
       <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
         <div>
-          <label
-            htmlFor="article_title"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
+          <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
             Title:
           </label>
           <input
             type="text"
-            id="article_title"
-            name="article_title"
+            id="name"
+            name="name"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={formData?.name}
             onChange={onChangeHandle}
           />
         </div>
         <div>
-          <label
-            htmlFor="article_content"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
+          <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">
             Content:
           </label>
           <textarea
-            id="article_content"
-            name="article_content"
+            id="content"
+            name="content"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={formData?.bio}
             onChange={onChangeHandle}
