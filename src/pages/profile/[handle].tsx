@@ -1,5 +1,6 @@
 /* pages/profile/[handle].tsx */
 import { useState } from 'react'
+import Button from '../../common/components/Button'
 import { useAuth } from '../../modules/auth/auth-provider'
 import EditForm from '../../modules/profile/components/EditForm'
 import { useProfile } from '../../modules/profile/hooks'
@@ -31,12 +32,11 @@ const Profile = () => {
         {profile.ownedBy === address && isEditing ? (
           <EditForm onCancel={handleEditOrCancel} profileId={profile.id} />
         ) : (
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={handleEditOrCancel}
-          >
-            Edit
-          </button>
+          <Button
+            backgroundColor="bg-blue-500 hover:bg-blue-700"
+            text="Edit"
+            onClickHandle={handleEditOrCancel}
+          />
         )}
       </div>
     </div>
