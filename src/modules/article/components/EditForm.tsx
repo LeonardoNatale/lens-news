@@ -13,12 +13,11 @@ const EditForm = (props: any) => {
   const [formData, setFormData] = useState<any>({ name: '', content: '' })
 
   const [createPublication, { data, loading, error }] = useMutation(CREATE_PUBLICATION)
-
   const onChangeHandle: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
   ) => {
     const { name, value } = e.target
-
+    props.onArticleModify(name, value)
     setFormData({
       ...formData,
       [name]: value
@@ -49,7 +48,7 @@ const EditForm = (props: any) => {
   }
 
   return (
-    <div className="w-full max-w-sm bg-slate-100 p-6 rounded-lg">
+    <div className="flex flex-col bg-slate-100 p-6 rounded-lg flex-1">
       <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
         <div>
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
@@ -71,15 +70,15 @@ const EditForm = (props: any) => {
           <textarea
             id="content"
             name="content"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-screen"
             value={formData?.bio}
             onChange={onChangeHandle}
           ></textarea>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex justify-between">
           <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold px-4 rounded"
             onClick={props.onCancel}
           >
             Cancel

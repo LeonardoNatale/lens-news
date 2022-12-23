@@ -1,4 +1,8 @@
-import { PublicationMetadataVersions, PublicationMetadata, PublicationMainFocus } from '../article.type'
+import {
+  PublicationMetadataVersions,
+  PublicationMetadata,
+  PublicationMainFocus
+} from '../article.type'
 import { v4 as uuidv4 } from 'uuid'
 
 export const makeArticleMetadataRequest = (data: any): PublicationMetadata => {
