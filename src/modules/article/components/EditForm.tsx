@@ -7,6 +7,7 @@ import { CREATE_PUBLICATION } from '../metadata/create-publication'
 import { makeArticleMetadataRequest } from '../metadata/util'
 import { PublicationMetadata } from '../article.type'
 import * as _ from 'lodash'
+import FormButton, { FormButtonColors } from '../../../common/components/FormButton'
 
 const EditForm = (props: any) => {
   const { token } = useAuth()
@@ -76,19 +77,9 @@ const EditForm = (props: any) => {
           ></textarea>
         </div>
 
-        <div className="flex justify-between">
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold px-4 rounded"
-            onClick={props.onCancel}
-          >
-            Cancel
-          </button>
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            type="submit"
-          >
-            Save
-          </button>
+        <div className="flex items-center justify-between">
+          <FormButton text="Cancel" backgroundColor={FormButtonColors.RED} />
+          <FormButton text="Save" backgroundColor={FormButtonColors.GREEN} />
         </div>
       </form>
     </div>
