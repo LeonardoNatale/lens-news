@@ -6,10 +6,11 @@ import { pinJsonToPinata } from '../../ipfs/pinata'
 import { CREATE_PUBLICATION } from '../metadata/create-publication'
 import { makeArticleMetadataRequest } from '../metadata/util'
 import { PublicationMetadata } from '../article.type'
-import * as _ from 'lodash'
 import FormButton, { FormButtonColors } from '../../../common/components/FormButton'
+import FormInput from '../../../common/components/FormInput'
+import FormTextArea from '../../../common/components/FormTextArea'
 
-const EditForm = (props: any) => {
+const CreateArticleForm = (props: any) => {
   const { token } = useAuth()
   const [formData, setFormData] = useState<any>({ name: '', content: '' })
 
@@ -51,32 +52,19 @@ const EditForm = (props: any) => {
   return (
     <div className="flex flex-col bg-slate-100 p-6 rounded-lg flex-1">
       <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
-        <div>
-          <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
-            Title:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={formData?.name}
-            onChange={onChangeHandle}
-          />
-        </div>
-        <div>
-          <label htmlFor="content" className="block text-gray-700 text-sm font-bold mb-2">
-            Content:
-          </label>
-          <textarea
-            id="content"
-            name="content"
-            className="shadow appearance-none border rounded w-full px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-screen"
-            value={formData?.bio}
-            onChange={onChangeHandle}
-          ></textarea>
-        </div>
-
+        <FormInput
+          type="text"
+          label="Title:"
+          name="title"
+          value={formData?.name}
+          onChange={onChangeHandle}
+        />
+        <FormTextArea
+          label="Content:"
+          name="content"
+          value={formData?.bio}
+          onChange={onChangeHandle}
+        />
         <div className="flex items-center justify-between">
           <FormButton text="Cancel" backgroundColor={FormButtonColors.RED} />
           <FormButton text="Save" backgroundColor={FormButtonColors.GREEN} />
@@ -86,4 +74,4 @@ const EditForm = (props: any) => {
   )
 }
 
-export default EditForm
+export default CreateArticleForm

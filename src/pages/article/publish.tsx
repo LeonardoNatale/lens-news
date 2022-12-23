@@ -1,7 +1,7 @@
 /* pages/profile/[handle].tsx */
-import { SetStateAction, useState, useEffect, createContext } from 'react'
+import { SetStateAction, useState } from 'react'
 import { useAuth } from '../../modules/auth/auth-provider'
-import EditForm from '../../modules/article/components/EditForm'
+import CreateArticleForm from '../../modules/article/components/CreateArticleForm'
 import PreviewContext from '../../modules/article/components/PreviewContext'
 import ArticlePreview from '../../modules/article/components/ArticlePreview'
 import { useProfile } from '../../modules/profile/hooks'
@@ -32,9 +32,14 @@ const Publish = () => {
 
   return (
     <PreviewContext.Provider value={{ articleHeading, articleText }}>
-      <div className="content-center justify-center pt-20 grid grid-cols-4 gap-6">
-        <EditForm onCancel={handleEditOrCancel} onArticleModify={handleArticleModify} />
-        <ArticlePreview articleHeading={articleHeading} articleContent={articleText} />
+      <div className="flex justify-center">
+        <div className="w-2/3 grid grid-cols-3 gap-6">
+          <CreateArticleForm
+            onCancel={handleEditOrCancel}
+            onArticleModify={handleArticleModify}
+          />
+          <ArticlePreview articleHeading={articleHeading} articleContent={articleText} />
+        </div>
       </div>
     </PreviewContext.Provider>
   )

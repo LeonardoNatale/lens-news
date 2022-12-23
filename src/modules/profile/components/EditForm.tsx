@@ -11,6 +11,8 @@ import * as _ from 'lodash'
 
 import LensPeripheryABI from '../../../abis/lens-periphery-data-provider.json'
 import { LENS_PERIPHERY_CONTRACT } from '../../../common/config'
+import FormInput from '../../../common/components/FormInput'
+import FormTextArea from '../../../common/components/FormTextArea'
 
 const EditForm = (props: any) => {
   const { token } = useAuth()
@@ -96,47 +98,26 @@ const EditForm = (props: any) => {
   return (
     <div className="w-full max-w-sm bg-slate-100 p-6 rounded-lg">
       <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
-        <div>
-          <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={formData?.name}
-            onChange={onChangeHandle}
-          />
-        </div>
-        <div>
-          <label htmlFor="bio" className="block text-gray-700 text-sm font-bold mb-2">
-            Bio:
-          </label>
-          <textarea
-            id="bio"
-            name="bio"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={formData?.bio}
-            onChange={onChangeHandle}
-          ></textarea>
-        </div>
-        <div>
-          <label
-            htmlFor="cover_picture"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            Cover Picture URL:
-          </label>
-          <input
-            type="url"
-            id="cover_picture"
-            name="cover_picture"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={formData?.profilePictureUri}
-            onChange={onChangeHandle}
-          />
-        </div>
+        <FormInput
+          type="text"
+          label="Name"
+          name="name"
+          value={formData?.name}
+          onChange={onChangeHandle}
+        />
+        <FormTextArea
+          label="Bio:"
+          name="bio"
+          value={formData?.bio}
+          onChange={onChangeHandle}
+        />
+        <FormInput
+          type="url"
+          label="Cover Picture URL:"
+          name="cover_picture"
+          value={formData?.profilePictureUri}
+          onChange={onChangeHandle}
+        />
 
         <div className="flex items-center justify-between">
           <button

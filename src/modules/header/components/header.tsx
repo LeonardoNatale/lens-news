@@ -1,36 +1,30 @@
 import Link from 'next/link'
-import { Newspaper, UserCircle, Plus } from 'phosphor-react'
+import { Newspaper, UserCircle } from 'phosphor-react'
 import { useAuth } from '../../auth/auth-provider'
-import Image from 'next/image'
 
 const Header = () => {
   const { address, token, connect, login } = useAuth()
 
   return (
-    <header className="flex w-full fixed bg-white p-4 justify-center top-0">
-      <div className="flex w-2/3 justify-between ">
+    <header className="flex w-full fixed bg-white justify-center top-0">
+      <div className="flex w-2/3 justify-between items-center">
         <Link href="/" className="flex gap-2 items-center">
           <Newspaper size={60} weight="bold" />
           <h1>Lens News</h1>
         </Link>
+        {address && token && (
+          <h3>
+            <Link href="/article/publish">+ Publish Article</Link>
+          </h3>
+        )}
         <div className="flex gap-2 items-center">
           {/* if the user has not yet connected their wallet, show a connect button */}
           {!address && <button onClick={connect}>Connect</button>}
-          {address && token && (
-            <h2>
-              <Link href="/article/publish" className="flex gap-2 items-center">
-                + Publish Article
-              </Link>
-            </h2>
-          )}
           {/* if the user has connected their wallet but has not yet authenticated, show them a login button */}
-          {address && !token && (
-            <Image src="/metamask.png" alt="metamask logo" width={32} height={32} />
-          )}
           {address && !token && <button onClick={login}>Login</button>}
           {/* once the user has authenticated, show them a success message */}
-          {address && token && <h2>Logged in</h2>}
-          <Link href="/profile/profiles" className="flex gap-2 items-center">
+          {address && token && <h3>Logged in</h3>}
+          <Link href="/profile/profiles">
             <UserCircle size={60} />
           </Link>
         </div>
