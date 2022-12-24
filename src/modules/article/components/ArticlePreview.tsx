@@ -11,8 +11,10 @@ const ArticlePreview = (props: any) => {
 
   return (
     <div className="flex flex-col bg-slate-100 p-6 rounded-lg col-span-2">
-      <ReactMarkdown>{markdownHeading}</ReactMarkdown>
-      <ReactMarkdown>{articleData.articleText}</ReactMarkdown>
+      <p className="break-words">
+        <ReactMarkdown>{markdownHeading}</ReactMarkdown>
+        <ReactMarkdown>{articleData.articleText}</ReactMarkdown>
+      </p>
     </div>
   )
 }
