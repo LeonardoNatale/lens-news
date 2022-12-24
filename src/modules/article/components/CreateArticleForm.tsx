@@ -12,7 +12,7 @@ import FormTextArea from '../../../common/components/FormTextArea'
 
 const CreateArticleForm = (props: any) => {
   const { token } = useAuth()
-  const [formData, setFormData] = useState<any>({ name: '', content: '' })
+  const [formData, setFormData] = useState<any>({ title: '', content: '' })
 
   const [createPublication, { data, loading, error }] = useMutation(CREATE_PUBLICATION)
   const onChangeHandle: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
@@ -56,17 +56,16 @@ const CreateArticleForm = (props: any) => {
           type="text"
           label="Title:"
           name="title"
-          value={formData?.name}
+          value={formData?.title}
           onChange={onChangeHandle}
         />
         <FormTextArea
           label="Content:"
           name="content"
-          value={formData?.bio}
+          value={formData?.content}
           onChange={onChangeHandle}
         />
-        <div className="flex items-center justify-between">
-          <FormButton text="Cancel" backgroundColor={FormButtonColors.RED} />
+        <div className="flex justify-center">
           <FormButton text="Save" backgroundColor={FormButtonColors.GREEN} />
         </div>
       </form>

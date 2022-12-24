@@ -1,12 +1,12 @@
 import { createContext } from 'react'
 
 interface ArticlePreviewContextValue {
-  name: string
+  title: string
   content: string
 }
 
 const PreviewContext = createContext<any>({
-  name: '',
+  title: '',
   content: ''
 })
 
