@@ -1,12 +1,13 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import { ethers } from 'ethers'
-import { AuthContext } from './type'
-import { authenticate, challenge } from './queries'
+import { DefaultProfileInfo, AuthContext } from './type'
+import { authenticate, challenge, get_defaultprofile } from './queries'
 import { client } from '../../pages/_app'
 
 const AuthContext = createContext<AuthContext>({
   address: '',
   token: '',
+  defaultProfile: undefined,
   connect: () => undefined,
   login: () => undefined
 })
@@ -14,6 +15,11 @@ const AuthContext = createContext<AuthContext>({
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [address, setAddress] = useState<string>()
   const [token, setToken] = useState()
+  const [defaultProfile, setDefaultProfile] = useState<DefaultProfileInfo>({
+    id: '',
+    name: '',
+    img_url: ''
+  })
 
   useEffect(() => {
     // when the app loads, check to see if the user has already connected their wallet
@@ -63,13 +69,31 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } = authData
       console.log({ accessToken })
       setToken(accessToken)
+
+      /* Get default profile as well
+      / For some reason even the variable name has to be exactly as in the gql query... */
+      const ethereumAddress = address
+      const defaultProfileData = await client.query({
+        query: get_defaultprofile,
+        variables: { ethereumAddress }
+      })
+
+      /* This seems to work for profiles created on lenster, how can we know which ifps an image is hosted on? */
+      const avatar_url =
+        'https://lens.infura-ipfs.io/ipfs/' +
+        defaultProfileData.data.defaultProfile.picture.original.url.substring(7)
+      setDefaultProfile({
+        id: defaultProfileData.data.defaultProfile.id,
+        name: defaultProfileData.data.defaultProfile.name,
+        img_url: avatar_url
+      })
     } catch (err) {
       console.log('Error signing in: ', err)
     }
   }
 
   return (
-    <AuthContext.Provider value={{ address, token, connect, login }}>
+    <AuthContext.Provider value={{ address, token, defaultProfile, connect, login }}>
       {children}
     </AuthContext.Provider>
   )

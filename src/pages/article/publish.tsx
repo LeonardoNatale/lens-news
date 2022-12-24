@@ -16,7 +16,7 @@ const Publish = () => {
     name: SetStateAction<string>,
     content: SetStateAction<string>
   ) => {
-    if (name == 'title') {
+    if (name == 'name') {
       setArticleHeading(content)
     } else {
       setArticleText(content)

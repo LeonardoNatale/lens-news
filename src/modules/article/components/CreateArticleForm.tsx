@@ -11,7 +11,7 @@ import FormInput from '../../../common/components/FormInput'
 import FormTextArea from '../../../common/components/FormTextArea'
 
 const CreateArticleForm = (props: any) => {
-  const { token } = useAuth()
+  const { defaultProfile, token } = useAuth()
   const [formData, setFormData] = useState<any>({ title: '', content: '' })
 
   const [createPublication, { data, loading, error }] = useMutation(CREATE_PUBLICATION)
@@ -34,7 +34,7 @@ const CreateArticleForm = (props: any) => {
     const ipfsResult = await pinJsonToPinata<PublicationMetadata>(publicationMetadata)
 
     const createPublicationRequest = {
-      profileId: '0x5a58', //props.profileId,
+      profileId: defaultProfile.id, //props.profileId,
       contentURI: `ipfs://${ipfsResult.IpfsHash}`,
       collectModule: { freeCollectModule: { followerOnly: false } },
       referenceModule: { followerOnlyReferenceModule: false }
@@ -55,8 +55,8 @@ const CreateArticleForm = (props: any) => {
         <FormInput
           type="text"
           label="Title:"
-          name="title"
-          value={formData?.title}
+          name="name"
+          value={formData?.name}
           onChange={onChangeHandle}
         />
         <FormTextArea

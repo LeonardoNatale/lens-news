@@ -16,3 +16,20 @@ export const authenticate = gql`
     }
   }
 `
+
+export const get_defaultprofile = gql`
+  query DefaultProfile($ethereumAddress: EthereumAddress!) {
+    defaultProfile(request: { ethereumAddress: $ethereumAddress }) {
+      id
+      name
+      picture {
+        ... on MediaSet {
+          original {
+            url
+            mimeType
+          }
+        }
+      }
+    }
+  }
+`
