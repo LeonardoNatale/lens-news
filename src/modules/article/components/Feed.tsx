@@ -1,13 +1,14 @@
 import { useQuery } from '@apollo/client'
 import Link from 'next/link'
 import { EXPLORE_ARTICLES } from '../explore-articles'
+import ArticleCard from './ArticleCard'
 
 const Feed = () => {
   const { data, loading, error } = useQuery(EXPLORE_ARTICLES, {
     variables: {
       request: {
         sortCriteria: 'LATEST',
-        limit: 32,
+        limit: 9,
         noRandomize: false,
         publicationTypes: ['POST'],
         metadata: {
@@ -28,30 +29,13 @@ const Feed = () => {
   const articles = data.explorePublications.items
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="text-5xl mb-6 font-bold">Hello Lens 🌿</h1>
-      {articles.map((article: any) => (
-        <div
-          key={article.id}
-          className="w-2/3 shadow-md p-6 rounded-lg mb-8 flex flex-col items-center"
-        >
-          <Link href={`/article/${article.id}`}>
-            {/* <img className="w-48" src={profile.avatarUrl || 'https://picsum.photos/200'} /> */}
-            <p className="text-xl text-center mt-6">{article.metadata.name}</p>
-            <p className="text-base text-gray-400  text-center mt-2">
-              {article.metadata.description}
-            </p>
-            <Link href={`/profile/${article.profile.handle}`}>
-              <p className="cursor-pointer text-violet-600 text-lg font-medium text-center mt-2 mb-2">
-                {`Author: ${article.profile.handle}`}
-              </p>
-            </Link>
-            <p className="text-pink-600 text-sm font-medium text-center">
-              {`TAGS: ${article.metadata.tags.join(',')}`}
-            </p>
-          </Link>
-        </div>
-      ))}
+    <div className="flex flex-col items-center">
+      <h1 className="text-5xl mb-6 font-bold">Recent Articles🗞️</h1>
+      <div className="w-2/3 grid grid-cols-3 grid-rows gap-2">
+        {articles.map((article: any) => (
+          <ArticleCard key={article.id} article={article} />
+        ))}
+      </div>
     </div>
   )
 }
