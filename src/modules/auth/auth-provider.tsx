@@ -18,7 +18,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [defaultProfile, setDefaultProfile] = useState<DefaultProfileInfo>({
     id: '',
     name: '',
-    img_url: ''
+    img_url: '',
+    handle: ''
   })
 
   useEffect(() => {
@@ -85,7 +86,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setDefaultProfile({
         id: defaultProfileData.data.defaultProfile.id,
         name: defaultProfileData.data.defaultProfile.name,
-        img_url: avatar_url
+        img_url: avatar_url,
+        handle: defaultProfileData.data.defaultProfile.handle
       })
     } catch (err) {
       console.log('Error signing in: ', err)

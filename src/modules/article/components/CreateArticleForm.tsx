@@ -9,9 +9,11 @@ import { PublicationMetadata } from '../article.type'
 import FormButton, { FormButtonColors } from '../../../common/components/FormButton'
 import FormInput from '../../../common/components/FormInput'
 import FormTextArea from '../../../common/components/FormTextArea'
+import { useRouter } from 'next/router'
 
 const CreateArticleForm = (props: any) => {
   const { defaultProfile, token } = useAuth()
+  const router = useRouter()
   const [formData, setFormData] = useState<any>({ title: '', content: '' })
 
   const [createPublication, { data, loading, error }] = useMutation(CREATE_PUBLICATION)
@@ -47,6 +49,9 @@ const CreateArticleForm = (props: any) => {
       },
       ...generateContext(token)
     })
+    /* Redirect user to their profile page (it is quite tricky to get the
+      actual article ID, but would be nicer to redirect there I guess) */
+    router.push('/profile/' + defaultProfile.handle)
   }
 
   return (

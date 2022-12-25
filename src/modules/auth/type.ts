@@ -2,6 +2,7 @@ export type DefaultProfileInfo = {
   id: string | undefined
   name: string | undefined
   img_url: string
+  handle: string
 }
 
 export type AuthContext = {

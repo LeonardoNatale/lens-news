@@ -22,6 +22,7 @@ export const get_defaultprofile = gql`
     defaultProfile(request: { ethereumAddress: $ethereumAddress }) {
       id
       name
+      handle
       picture {
         ... on MediaSet {
           original {
