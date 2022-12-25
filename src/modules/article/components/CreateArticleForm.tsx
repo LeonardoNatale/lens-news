@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 const CreateArticleForm = (props: any) => {
   const { defaultProfile, token } = useAuth()
   const router = useRouter()
-  const [formData, setFormData] = useState<any>({ title: '', content: '' })
+  const [formData, setFormData] = useState<any>({ name: '', content: '' })
 
   const [createPublication, { data, loading, error }] = useMutation(CREATE_PUBLICATION)
   const onChangeHandle: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
@@ -52,6 +52,10 @@ const CreateArticleForm = (props: any) => {
     /* Redirect user to their profile page (it is quite tricky to get the
       actual article ID, but would be nicer to redirect there I guess) */
     router.push('/profile/' + defaultProfile.handle)
+  }
+
+  if (loading) {
+    return <p>Publishing...</p>
   }
 
   return (
