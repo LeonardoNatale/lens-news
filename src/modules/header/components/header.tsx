@@ -24,7 +24,7 @@ const Header = () => {
             </Link>
           )}
           {address && token && (
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row gap-4 items-center">
               <b>Logged in as {defaultProfile.name}</b>
               <Link href="/profile/profiles">
                 <img
