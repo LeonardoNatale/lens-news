@@ -8,3 +8,9 @@ lint:
 
 format:
 	npx prettier --write "pages/**/*{ts,tsx}" "queries/*{ts,tsx}" --check
+
+graph-ql/generate:
+	npx graphql-codegen
+
+graph-ql/watch:
+	npm graphql-codegen -w
