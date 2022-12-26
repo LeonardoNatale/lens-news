@@ -13,6 +13,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Generating types
 
 Followed https://www.apollographql.com/docs/react/development-testing/static-typing/
+Read this https://github.com/dotansimha/graphql-code-generator/issues/8103
 
 ## Deploy on Vercel
 

@@ -1,18 +1,22 @@
 import { useQuery } from '@apollo/client'
-import Link from 'next/link'
-import { EXPLORE_ARTICLES } from '../explore-articles'
+import {
+  ExplorePublicationsDocument,
+  PublicationMainFocus,
+  PublicationSortCriteria,
+  PublicationTypes
+} from '../../../generated/graphql'
 import ArticleCard from './ArticleCard'
 
 const Feed = () => {
-  const { data, loading, error } = useQuery(EXPLORE_ARTICLES, {
+  const { data, loading, error } = useQuery(ExplorePublicationsDocument, {
     variables: {
       request: {
-        sortCriteria: 'LATEST',
+        sortCriteria: PublicationSortCriteria.Latest,
         limit: 9,
         noRandomize: false,
-        publicationTypes: ['POST'],
+        publicationTypes: [PublicationTypes.Post],
         metadata: {
-          mainContentFocus: ['ARTICLE']
+          mainContentFocus: [PublicationMainFocus.Article]
         }
       }
     }

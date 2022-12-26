@@ -18,7 +18,6 @@ type ArticleCardProps = {
 }
 
 const ArticleCard = ({ article }: ArticleCardProps) => {
-  console.log(article)
   const { metadata, createdAt } = article
   const formattedDate = dayjs(createdAt).format('DD/MM/YYYY')
   return (
