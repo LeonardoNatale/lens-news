@@ -9,7 +9,7 @@ const config: CodegenConfig = {
       plugins: [],
       config: {
         dedupeFragments: true,
-        avoidOptionals: true
+        skipTypename: true
       },
       presetConfig: {
         gqlTagName: 'gql'

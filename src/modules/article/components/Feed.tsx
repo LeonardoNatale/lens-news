@@ -30,7 +30,7 @@ const Feed = () => {
     return <p>{error.message}</p>
   }
 
-  const articles = data.explorePublications.items
+  const articles = data?.explorePublications.items
 
   return (
     <div className="flex flex-col items-center">
