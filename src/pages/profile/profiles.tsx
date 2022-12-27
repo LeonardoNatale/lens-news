@@ -1,14 +1,17 @@
 /* pages/profiles/profiles.tsx */
 
-import { PROFILES } from '../../modules/profile/get-profiles'
 import { useQuery } from '@apollo/client'
 import { useAuth } from '../../modules/auth/auth-provider'
 import Link from 'next/link'
+import { makeProfilePictureUrl } from '../../modules/profile/util'
+import { ProfilesDocument } from '../../generated/graphql'
 
 const Profiles = () => {
   const { address } = useAuth()
 
-  const { data, loading, error } = useQuery(PROFILES, { variables: { ownedBy: address } })
+  const { data, loading, error } = useQuery(ProfilesDocument, {
+    variables: { ownedBy: address }
+  })
 
   if (loading) {
     return 'Loading...'
@@ -21,14 +24,15 @@ const Profiles = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-5xl mb-6 font-bold">My profiles 🌿</h1>
-      {data.profiles.items.map((profile: any) => (
+      {data?.profiles.items.map((profile: any) => (
         <div
           key={profile.id}
           className="max-w-screen-xl shadow-md p-6 rounded-lg mb-8 flex flex-col items-center"
         >
           <img
             className="w-48"
-            src={profile.picture?.original?.url || 'https://picsum.photos/200'}
+            alt="profile picture"
+            src={makeProfilePictureUrl(profile)}
           />
           <p className="text-xl text-center mt-6">{`Name: ${profile.name}`}</p>
           <Link href={`/profile/${profile.handle}`}>
