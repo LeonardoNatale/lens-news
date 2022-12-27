@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ApolloProvider client={client}>
       <AuthProvider>
         <Header />
-        <div className="container m-auto max-w-full pt-4 my-20">
+        <div className="container m-auto max-w-full">
           <Component {...pageProps} />
         </div>
       </AuthProvider>

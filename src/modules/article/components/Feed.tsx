@@ -34,7 +34,7 @@ const Feed = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-5xl mb-6 font-bold">Recent Articles🗞️</h1>
+      <h2 className="text-5xl my-4 font-bold">Recent Articles🗞️</h2>
       <div className="max-w-screen-xl grid grid-cols-3 grid-rows gap-2">
         {articles?.map((article: any) => (
           <ArticleCard key={article.id} article={article} />
