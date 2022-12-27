@@ -1,5 +1,6 @@
 /* pages/profile/[handle].tsx */
 import { useProfile } from '../../modules/profile/hooks'
+import { makeProfilePictureUrl } from '../../modules/profile/util'
 
 const Profile = () => {
   const { profile, publications } = useProfile()
@@ -14,7 +15,7 @@ const Profile = () => {
         <img
           className="w-64 rounded-full"
           alt="profile picture"
-          src={profile.avatarUrl}
+          src={makeProfilePictureUrl(profile)}
         />
         <p className="text-4xl mt-8 mb-8">{profile.handle}</p>
         <p className="text-center text-xl font-bold mt-2 mb-2 w-1/2">{profile.bio}</p>

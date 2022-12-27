@@ -35,7 +35,6 @@ const Article = () => {
           </p>
         </Link>
         <h1 className="text-5xl mb-6 font-bold">{article.metadata.name}</h1>
-        {/* <img className="w-48" src={profile.avatarUrl || 'https://picsum.photos/200'} /> */}
         <p className="text-xl text-center mt-6">{article.metadata.description}</p>
         <p className="mt-4 text-gray-700 leading-relaxed font-serif">
           <ReactMarkdown>{article.metadata.content}</ReactMarkdown>

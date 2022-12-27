@@ -8,6 +8,7 @@ import {
   DefaultProfileDocument,
   Profile
 } from '../../generated/graphql'
+import { makeProfilePictureUrl } from '../profile/util'
 
 const AuthContext = createContext<AuthContext>({
   address: '',
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [defaultProfile, setDefaultProfile] = useState<DefaultProfileInfo>({
     id: '',
     name: '',
-    img_url: '',
+    imgUrl: '',
     handle: ''
   })
 
@@ -80,14 +81,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       const defaultProfile = defaultProfileData.data.defaultProfile as unknown as Profile
 
-      /* This seems to work for profiles created on lenster, how can we know which ifps an image is hosted on? */
-      const avatar_url =
-        'https://lens.infura-ipfs.io/ipfs/' +
-        defaultProfile.picture?.original.url.substring(7) // TODO fix in case of NFT image
+      const imgUrl = makeProfilePictureUrl(defaultProfile)
+
       setDefaultProfile({
         id: defaultProfile.id,
         name: defaultProfile.name,
-        img_url: avatar_url,
+        imgUrl: imgUrl,
         handle: defaultProfile.handle
       })
     } catch (err) {

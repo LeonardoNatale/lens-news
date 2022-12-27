@@ -30,7 +30,7 @@ const Header = () => {
                 <Link href="/profile/profiles">
                   <img
                     alt="avatar"
-                    src={defaultProfile.img_url}
+                    src={defaultProfile.imgUrl}
                     className="h-10 mx-auto object-cover rounded-full w-10"
                   />
                 </Link>

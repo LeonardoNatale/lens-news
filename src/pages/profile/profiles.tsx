@@ -26,7 +26,10 @@ const Profiles = () => {
           key={profile.id}
           className="max-w-screen-xl shadow-md p-6 rounded-lg mb-8 flex flex-col items-center"
         >
-          <img className="w-48" src={profile.picture || 'https://picsum.photos/200'} />
+          <img
+            className="w-48"
+            src={profile.picture?.original?.url || 'https://picsum.photos/200'}
+          />
           <p className="text-xl text-center mt-6">{`Name: ${profile.name}`}</p>
           <Link href={`/profile/${profile.handle}`}>
             <p className="text-xl text-center mt-6">{`Handle: ${profile.handle}`}</p>

@@ -1,7 +1,7 @@
 export type DefaultProfileInfo = {
   id: string | undefined
   name?: string | null
-  img_url: string
+  imgUrl: string
   handle: string
 }
 
