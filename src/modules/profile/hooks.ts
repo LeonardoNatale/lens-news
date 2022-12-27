@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
+import { Profile, ProfileDocument, PublicationsDocument } from '../../generated/graphql'
 import { client } from '../../pages/_app'
-import { getProfile } from './get-profile'
-import { getPublications } from './get-publications'
 
 export const useProfile = () => {
   /* create initial state to hold user profile and array of publications */
@@ -16,10 +15,10 @@ export const useProfile = () => {
     try {
       /* fetch the user profile using their handle */
       const returnedProfile = await client.query({
-        query: getProfile,
+        query: ProfileDocument,
         variables: { handle }
       })
-      const profileData = { ...returnedProfile.data.profile }
+      const profileData = { ...returnedProfile.data.profile } as unknown as Profile
       /* format their picture if it is not in the right format */
       const picture = profileData.picture
       if (picture && picture.original && picture.original.url) {
@@ -33,7 +32,7 @@ export const useProfile = () => {
       setProfile(profileData)
       /* fetch the user's publications from the Lens API and set them in the state */
       const pubs = await client.query({
-        query: getPublications,
+        query: PublicationsDocument,
         variables: {
           id: profileData.id,
           limit: 50
