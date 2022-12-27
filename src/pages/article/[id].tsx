@@ -28,7 +28,7 @@ const Article = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="w-2/3">
+      <div className="max-w-screen-xl">
         <Link href={`/profile/${article.profile.handle}`}>
           <p className="cursor-pointer text-violet-600 text-lg font-medium text-center mt-2 mb-2">
             {`Author: ${article.profile.handle}`}

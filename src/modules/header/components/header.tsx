@@ -6,38 +6,40 @@ const Header = () => {
   const { address, token, defaultProfile, connect, login } = useAuth()
 
   return (
-    <header className="flex w-full fixed bg-white justify-center top-0">
-      <div className="flex w-2/3 justify-between items-center">
-        <Link href="/" className="flex gap-2 items-center">
-          <Newspaper size={60} weight="bold" />
-          <h1>Lens News</h1>
-        </Link>
-        <div className="flex gap-2 items-center">
-          {/* if the user has not yet connected their wallet, show a connect button */}
-          {!address && <button onClick={connect}>Connect</button>}
-          {/* if the user has connected their wallet but has not yet authenticated, show them a login button */}
-          {address && !token && <button onClick={login}>Login</button>}
-          {/* once the user has authenticated, show them a success message */}
-          {!token && (
-            <Link href="/profile/profiles">
-              <UserCircle size={60} />
-            </Link>
-          )}
-          {address && token && (
-            <div className="flex flex-row gap-4 items-center">
-              <b>Logged in as {defaultProfile.name}</b>
+    <header className="w-full sticky bg-white justify-center top-0 border-b">
+      <div className="container px-5 mx-auto max-w-screen-xl">
+        <div className="flex justify-between items-center">
+          <Link href="/" className="flex gap-2 items-center">
+            <Newspaper size={40} weight="bold" />
+            <h2>Lens News</h2>
+          </Link>
+          <div className="flex gap-2 items-center">
+            {/* if the user has not yet connected their wallet, show a connect button */}
+            {!address && <button onClick={connect}>Connect</button>}
+            {/* if the user has connected their wallet but has not yet authenticated, show them a login button */}
+            {address && !token && <button onClick={login}>Login</button>}
+            {/* once the user has authenticated, show them a success message */}
+            {!token && (
               <Link href="/profile/profiles">
-                <img
-                  alt="avatar"
-                  src={defaultProfile.img_url}
-                  className="h-10 mx-auto object-cover rounded-full w-10"
-                />
+                <UserCircle size={40} />
               </Link>
-              <Link href="/article/publish">
-                <DotsThreeVertical size={32} />
-              </Link>
-            </div>
-          )}
+            )}
+            {address && token && (
+              <div className="flex flex-row gap-4 items-center">
+                <b>Logged in as {defaultProfile.name}</b>
+                <Link href="/profile/profiles">
+                  <img
+                    alt="avatar"
+                    src={defaultProfile.img_url}
+                    className="h-10 mx-auto object-cover rounded-full w-10"
+                  />
+                </Link>
+                <Link href="/article/publish">
+                  <DotsThreeVertical size={32} />
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

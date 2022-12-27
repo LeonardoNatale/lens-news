@@ -19,7 +19,7 @@ const Profile = () => {
         <p className="text-4xl mt-8 mb-8">{profile.handle}</p>
         <p className="text-center text-xl font-bold mt-2 mb-2 w-1/2">{profile.bio}</p>
         {publications.map((pub) => (
-          <div key={pub.id} className="shadow p-10 rounded mb-8 w-2/3">
+          <div key={pub.id} className="shadow p-10 rounded mb-8 max-w-screen-xl">
             <p>{pub.metadata.content}</p>
           </div>
         ))}

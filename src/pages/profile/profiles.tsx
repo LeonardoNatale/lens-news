@@ -24,7 +24,7 @@ const Profiles = () => {
       {data.profiles.items.map((profile: any) => (
         <div
           key={profile.id}
-          className="w-2/3 shadow-md p-6 rounded-lg mb-8 flex flex-col items-center"
+          className="max-w-screen-xl shadow-md p-6 rounded-lg mb-8 flex flex-col items-center"
         >
           <img className="w-48" src={profile.picture || 'https://picsum.photos/200'} />
           <p className="text-xl text-center mt-6">{`Name: ${profile.name}`}</p>

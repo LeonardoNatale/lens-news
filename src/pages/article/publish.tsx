@@ -26,7 +26,7 @@ const Publish = () => {
   return (
     <PreviewContext.Provider value={{ articleHeading, articleText }}>
       <div className="flex justify-center">
-        <div className="w-2/3 grid grid-cols-3 gap-6">
+        <div className="max-w-screen-xl grid grid-cols-3 gap-6">
           <CreateArticleForm onArticleModify={handleArticleModify} />
           <ArticlePreview articleHeading={articleHeading} articleContent={articleText} />
         </div>
