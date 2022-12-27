@@ -13,4 +13,4 @@ graph-ql/generate:
 	npx graphql-codegen
 
 graph-ql/watch:
-	npm graphql-codegen -w
+	npx graphql-codegen -w

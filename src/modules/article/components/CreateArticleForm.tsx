@@ -3,20 +3,24 @@ import React, { ChangeEventHandler, FormEvent, useState } from 'react'
 import { useAuth } from '../../auth/auth-provider'
 import { generateContext } from '../../auth/utils'
 import { pinJsonToPinata } from '../../ipfs/pinata'
-import { CREATE_PUBLICATION } from '../metadata/create-publication'
-import { makeArticleMetadataRequest } from '../metadata/util'
-import { PublicationMetadata } from '../article.type'
+import { makeArticleMetadataRequest } from '../util'
 import FormButton, { FormButtonColors } from '../../../common/components/FormButton'
 import FormInput from '../../../common/components/FormInput'
 import FormTextArea from '../../../common/components/FormTextArea'
 import { useRouter } from 'next/router'
+import {
+  CreatePostViaDispatcherDocument,
+  PublicationMetadataV2Input
+} from '../../../generated/graphql'
 
 const CreateArticleForm = (props: any) => {
   const { defaultProfile, token } = useAuth()
   const router = useRouter()
   const [formData, setFormData] = useState<any>({ name: '', content: '' })
 
-  const [createPublication, { data, loading, error }] = useMutation(CREATE_PUBLICATION)
+  const [createPublication, { data, loading, error }] = useMutation(
+    CreatePostViaDispatcherDocument
+  )
   const onChangeHandle: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
     e
   ) => {
@@ -33,7 +37,9 @@ const CreateArticleForm = (props: any) => {
 
     const publicationMetadata = makeArticleMetadataRequest(formData)
 
-    const ipfsResult = await pinJsonToPinata<PublicationMetadata>(publicationMetadata)
+    const ipfsResult = await pinJsonToPinata<PublicationMetadataV2Input>(
+      publicationMetadata
+    )
 
     const createPublicationRequest = {
       profileId: defaultProfile.id, //props.profileId,
