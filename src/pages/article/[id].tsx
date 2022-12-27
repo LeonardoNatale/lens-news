@@ -2,13 +2,13 @@ import { useQuery } from '@apollo/client'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
-import { GET_ARTICLE } from '../../modules/article/get-article'
+import { Post, PublicationDocument } from '../../generated/graphql'
 
 const Article = () => {
   const router = useRouter()
   const { id } = router.query
 
-  const { data, loading, error } = useQuery(GET_ARTICLE, {
+  const { data, loading, error } = useQuery(PublicationDocument, {
     variables: {
       request: {
         publicationId: id
@@ -24,7 +24,7 @@ const Article = () => {
     return <p>{error.message}</p>
   }
 
-  const article = data.publication
+  const article = data?.publication as unknown as Post
 
   return (
     <div className="flex justify-center">

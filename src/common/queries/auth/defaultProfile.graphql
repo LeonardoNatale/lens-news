@@ -1,0 +1,15 @@
+query DefaultProfile($ethereumAddress: EthereumAddress!) {
+  defaultProfile(request: { ethereumAddress: $ethereumAddress }) {
+    id
+    name
+    handle
+    picture {
+      ... on MediaSet {
+        original {
+          url
+          mimeType
+        }
+      }
+    }
+  }
+}

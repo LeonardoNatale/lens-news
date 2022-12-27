@@ -1,8 +1,13 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import { ethers } from 'ethers'
 import { DefaultProfileInfo, AuthContext } from './type'
-import { authenticate, challenge, get_defaultprofile } from './queries'
 import { client } from '../../pages/_app'
+import {
+  AuthenticateDocument,
+  ChallengeDocument,
+  DefaultProfileDocument,
+  Profile
+} from '../../generated/graphql'
 
 const AuthContext = createContext<AuthContext>({
   address: '',
@@ -47,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       /* first request the challenge from the API server */
       const challengeInfo = await client.query({
-        query: challenge,
+        query: ChallengeDocument,
         variables: { address }
       })
       const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -56,38 +61,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const signature = await signer.signMessage(challengeInfo.data.challenge.text)
       /* authenticate the user */
       const authData = await client.mutate({
-        mutation: authenticate,
+        mutation: AuthenticateDocument,
         variables: {
           address,
           signature
         }
       })
       /* if user authentication is successful, you will receive an accessToken and refreshToken */
-      const {
-        data: {
-          authenticate: { accessToken }
-        }
-      } = authData
-      console.log({ accessToken })
-      setToken(accessToken)
+      setToken(authData.data?.authenticate.accessToken)
 
       /* Get default profile as well
       / For some reason even the variable name has to be exactly as in the gql query... */
       const ethereumAddress = address
       const defaultProfileData = await client.query({
-        query: get_defaultprofile,
+        query: DefaultProfileDocument,
         variables: { ethereumAddress }
       })
+
+      const defaultProfile = defaultProfileData.data.defaultProfile as unknown as Profile
 
       /* This seems to work for profiles created on lenster, how can we know which ifps an image is hosted on? */
       const avatar_url =
         'https://lens.infura-ipfs.io/ipfs/' +
-        defaultProfileData.data.defaultProfile.picture.original.url.substring(7)
+        defaultProfile.picture?.original.url.substring(7) // TODO fix in case of NFT image
       setDefaultProfile({
-        id: defaultProfileData.data.defaultProfile.id,
-        name: defaultProfileData.data.defaultProfile.name,
+        id: defaultProfile.id,
+        name: defaultProfile.name,
         img_url: avatar_url,
-        handle: defaultProfileData.data.defaultProfile.handle
+        handle: defaultProfile.handle
       })
     } catch (err) {
       console.log('Error signing in: ', err)

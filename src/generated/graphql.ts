@@ -3635,12 +3635,32 @@ export type WorldcoinPhoneVerifyWebhookRequest = {
   signalType: WorldcoinPhoneVerifyType
 }
 
-export type CreatePostViaDispatcherMutationVariables = Exact<{
-  request: CreatePublicPostRequest
+export type AuthenticateMutationVariables = Exact<{
+  address: Scalars['EthereumAddress']
+  signature: Scalars['Signature']
 }>
 
-export type CreatePostViaDispatcherMutation = {
-  createPostViaDispatcher: { reason: RelayErrorReasons } | { txHash: any; txId: any }
+export type AuthenticateMutation = {
+  authenticate: { accessToken: any; refreshToken: any }
+}
+
+export type ChallengeQueryVariables = Exact<{
+  address: Scalars['EthereumAddress']
+}>
+
+export type ChallengeQuery = { challenge: { text: string } }
+
+export type DefaultProfileQueryVariables = Exact<{
+  ethereumAddress: Scalars['EthereumAddress']
+}>
+
+export type DefaultProfileQuery = {
+  defaultProfile?: {
+    id: any
+    name?: string | null
+    handle: any
+    picture?: { original: { url: any; mimeType?: any | null } } | {} | null
+  } | null
 }
 
 export type MediaFieldsFragment = {
@@ -4351,6 +4371,14 @@ export type EncryptedMediaSetFieldsFragment = {
     ' $fragmentRefs'?: { EncryptedMediaFieldsFragment: EncryptedMediaFieldsFragment }
   } | null
 } & { ' $fragmentName'?: 'EncryptedMediaSetFieldsFragment' }
+
+export type CreatePostViaDispatcherMutationVariables = Exact<{
+  request: CreatePublicPostRequest
+}>
+
+export type CreatePostViaDispatcherMutation = {
+  createPostViaDispatcher: { reason: RelayErrorReasons } | { txHash: any; txId: any }
+}
 
 export type DoesFollowQueryVariables = Exact<{
   request: DoesFollowRequest
@@ -6555,6 +6583,223 @@ export const OrConditionFieldsNoRecursiveFragmentDoc = {
     }
   ]
 } as unknown as DocumentNode<OrConditionFieldsNoRecursiveFragment, unknown>
+export const AuthenticateDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'Authenticate' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'address' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'EthereumAddress' } }
+          }
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'signature' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Signature' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'authenticate' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'address' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'address' }
+                      }
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'signature' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'signature' }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'accessToken' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'refreshToken' } }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<AuthenticateMutation, AuthenticateMutationVariables>
+export const ChallengeDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Challenge' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'address' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'EthereumAddress' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'challenge' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'address' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'address' }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'text' } }]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<ChallengeQuery, ChallengeQueryVariables>
+export const DefaultProfileDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'DefaultProfile' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'ethereumAddress' }
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'EthereumAddress' } }
+          }
+        }
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'defaultProfile' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'request' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'ethereumAddress' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'ethereumAddress' }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'handle' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'picture' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'MediaSet' }
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'original' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'mimeType' }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+} as unknown as DocumentNode<DefaultProfileQuery, DefaultProfileQueryVariables>
 export const CreatePostViaDispatcherDocument = {
   kind: 'Document',
   definitions: [
