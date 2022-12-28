@@ -4,8 +4,8 @@ export enum FormButtonColors {
 }
 
 const colorMap = new Map<string, string>([
-  ['green', 'bg-green-500 hover:bg-green-700'],
-  ['red', 'bg-red-500 hover:bg-red-700']
+  ['green', 'bg-utilities-success hover:bg-utilities-success-75'],
+  ['red', 'bg-utilities-error hover:utilities-error-75']
 ])
 
 type FormButtonProperties = {
@@ -17,9 +17,7 @@ type FormButtonProperties = {
 const FormButton = ({ backgroundColor, text }: FormButtonProperties) => {
   return (
     <button
-      className={`${colorMap.get(
-        backgroundColor
-      )} text-white font-bold py-2 px-4 rounded`}
+      className={`${colorMap.get(backgroundColor)} text-light-bg py-2 px-4 rounded`}
       type="submit"
     >
       {text}

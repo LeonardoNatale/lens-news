@@ -22,14 +22,14 @@ const ArticleCard = ({ article }: ArticleCardProps) => {
   const formattedDate = dayjs(createdAt).format('DD/MM/YYYY')
   return (
     <Link href={`/article/${article.id}`}>
-      <div className="bg-white rounded-lg shadow-md p-6 h-80 overflow-hidden">
-        <p className="text-gray-600 font-medium text-sm uppercase tracking-wide">
+      <div className="bg-light-bg rounded-lg shadow-md p-6 h-80 overflow-hidden">
+        <p className="text-light-low-contrast font-medium text-sm uppercase tracking-wide">
           {formattedDate}
         </p>
         <h1 className="mt-2 text-2xl font-semibold leading-tight font-serif">
           {metadata.name}
         </h1>
-        <p className="text-sm mt-4 text-gray-700 leading-relaxed font-serif ">
+        <p className="text-sm mt-4 leading-relaxed font-serif ">
           <ReactMarkdown>{metadata.content}</ReactMarkdown>
         </p>
       </div>

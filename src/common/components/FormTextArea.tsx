@@ -7,10 +7,10 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 const FormTextArea = ({ name, label, ...otherProps }: TextAreaProps) => {
   return (
-    <label className="block text-gray-700 mb-2">
+    <label className="block text-gray-700 mb-2 p-2">
       {label}
       <textarea
-        className="shadow appearance-none border rounded w-full py-2 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="shadow appearance-none border rounded w-full p-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         {...otherProps}
         name={name}
       />

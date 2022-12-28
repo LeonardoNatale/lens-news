@@ -65,7 +65,7 @@ const CreateArticleForm = (props: any) => {
   }
 
   return (
-    <div className="flex flex-col bg-slate-100 p-6 rounded-lg flex-1">
+    <div className="flex flex-col p-6 rounded-lg flex-1">
       <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
         <FormInput
           type="text"
