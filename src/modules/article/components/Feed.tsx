@@ -33,7 +33,7 @@ const Feed = () => {
   const articles = data?.explorePublications.items
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center ">
       <h2 className="text-5xl my-4 font-bold">Recent Articles🗞️</h2>
       <div className="max-w-screen-xl grid grid-cols-3 grid-rows gap-2">
         {articles?.map((article: any) => (
