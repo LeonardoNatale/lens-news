@@ -14,7 +14,6 @@ const AuthContext = createContext<AuthContext>({
   address: '',
   token: '',
   defaultProfile: undefined,
-  connect: () => undefined,
   login: () => undefined
 })
 
@@ -38,14 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const accounts = await provider.listAccounts()
     if (accounts.length) {
       setAddress(accounts[0])
-    }
-  }
-
-  async function connect() {
-    /* this allows the user to connect their wallet */
-    const account = await window.ethereum.send('eth_requestAccounts')
-    if (account.result.length) {
-      setAddress(account.result[0])
     }
   }
 
@@ -95,7 +86,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ address, token, defaultProfile, connect, login }}>
+    <AuthContext.Provider value={{ address, token, defaultProfile, login }}>
       {children}
     </AuthContext.Provider>
   )

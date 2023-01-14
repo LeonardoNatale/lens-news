@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { Newspaper, UserCircle, DotsThreeVertical } from 'phosphor-react'
 import { useAuth } from '../../auth/auth-provider'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const Header = () => {
-  const { address, token, defaultProfile, connect, login } = useAuth()
+  const { address, token, defaultProfile, login } = useAuth()
 
   return (
     <header className="w-full sticky bg-white justify-center top-0 border-b">
@@ -14,8 +15,6 @@ const Header = () => {
             <h2>Lens News</h2>
           </Link>
           <div className="flex gap-2 items-center">
-            {/* if the user has not yet connected their wallet, show a connect button */}
-            {!address && <button onClick={connect}>Connect</button>}
             {/* if the user has connected their wallet but has not yet authenticated, show them a login button */}
             {address && !token && <button onClick={login}>Login</button>}
             {/* once the user has authenticated, show them a success message */}
@@ -39,6 +38,7 @@ const Header = () => {
                 </Link>
               </div>
             )}
+            <ConnectButton chainStatus="none" showBalance={false} />
           </div>
         </div>
       </div>

@@ -4,6 +4,9 @@ import type { AppProps } from 'next/app'
 import Header from '../modules/header/components/header'
 import { AuthProvider } from '../modules/auth/auth-provider'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { WagmiConfig } from 'wagmi'
+import { chains, wagmiClient } from '../common/rainbow'
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 
 const API_URL = 'https://api-mumbai.lens.dev'
 
@@ -16,12 +19,16 @@ export const client = new ApolloClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
-      <AuthProvider>
-        <Header />
-        <div className="container m-auto max-w-full">
-          <Component {...pageProps} />
-        </div>
-      </AuthProvider>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <AuthProvider>
+            <Header />
+            <div className="container m-auto max-w-full">
+              <Component {...pageProps} />
+            </div>
+          </AuthProvider>
+        </RainbowKitProvider>
+      </WagmiConfig>
     </ApolloProvider>
   )
 }
