@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { useAuth } from '../../auth/auth-provider'
 import PreviewContext from './PreviewContext'
 import ReactMarkdown from 'react-markdown'
-import * as _ from 'lodash'
 
 const ArticlePreview = (props: any) => {
   const { token } = useAuth()
@@ -11,10 +10,8 @@ const ArticlePreview = (props: any) => {
 
   return (
     <div className="flex flex-col bg-slate-100 p-6 rounded-lg col-span-2">
-      <p className="break-words">
-        <ReactMarkdown>{markdownHeading}</ReactMarkdown>
-        <ReactMarkdown>{articleData.articleText}</ReactMarkdown>
-      </p>
+      <ReactMarkdown>{markdownHeading}</ReactMarkdown>
+      <ReactMarkdown>{articleData.articleText}</ReactMarkdown>
     </div>
   )
 }

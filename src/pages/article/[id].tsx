@@ -36,9 +36,9 @@ const Article = () => {
         </Link>
         <h1 className="text-5xl mb-6 font-bold">{article.metadata.name}</h1>
         <p className="text-xl text-center mt-6">{article.metadata.description}</p>
-        <p className="mt-4 text-gray-700 leading-relaxed font-serif">
-          <ReactMarkdown>{article.metadata.content}</ReactMarkdown>
-        </p>
+        <ReactMarkdown className="mt-4 text-gray-700 leading-relaxed font-serif">
+          {article.metadata.content}
+        </ReactMarkdown>
 
         {/* <p className="text-pink-600 text-sm font-medium text-center">
         {`TAGS: ${article.metadata.tags.join(',')}`}

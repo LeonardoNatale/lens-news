@@ -2,15 +2,12 @@ import { useMutation } from '@apollo/client'
 import React, { ChangeEventHandler, FormEvent, useState } from 'react'
 import { useAuth } from '../../auth/auth-provider'
 import { generateContext } from '../../auth/utils'
-import { pinJsonToPinata } from '../../ipfs/pinata'
-import { makeArticleMetadataRequest } from '../util'
 import FormButton, { FormButtonColors } from '../../../common/components/FormButton'
 import FormInput from '../../../common/components/FormInput'
 import FormTextArea from '../../../common/components/FormTextArea'
 import { useRouter } from 'next/router'
 import {
   CreatePostViaDispatcherDocument,
-  PublicationMetadataV2Input,
   RelayerResult
 } from '../../../generated/graphql'
 import { pollUntilIndexed } from '../../../common/indexing-checks'
@@ -37,11 +34,13 @@ const CreateArticleForm = (props: any) => {
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    const publicationMetadata = makeArticleMetadataRequest(formData)
+    // const publicationMetadata = makeArticleMetadataRequest(formData)
 
-    const ipfsResult = await pinJsonToPinata<PublicationMetadataV2Input>(
-      publicationMetadata
-    )
+    // const ipfsResult = await pinJsonToPinata<PublicationMetadataV2Input>(
+    //   publicationMetadata
+    // )
+
+    const ipfsResult = { IpfsHash: '' }
 
     const createPublicationRequest = {
       profileId: defaultProfile.id, //props.profileId,
