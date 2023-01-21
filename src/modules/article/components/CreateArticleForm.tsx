@@ -10,8 +10,10 @@ import FormTextArea from '../../../common/components/FormTextArea'
 import { useRouter } from 'next/router'
 import {
   CreatePostViaDispatcherDocument,
-  PublicationMetadataV2Input
+  PublicationMetadataV2Input,
+  RelayerResult
 } from '../../../generated/graphql'
+import { pollUntilIndexed } from '../../../common/indexing-checks'
 
 const CreateArticleForm = (props: any) => {
   const { defaultProfile, token } = useAuth()
@@ -49,12 +51,21 @@ const CreateArticleForm = (props: any) => {
     }
 
     // the result goes into the variable "data"
-    await createPublication({
+    const publishData = await createPublication({
       variables: {
         request: createPublicationRequest
       },
       ...generateContext(token)
     })
+
+    const txId = publishData.data?.createPostViaDispatcher.hasOwnProperty('txId')
+      ? (publishData.data?.createPostViaDispatcher as RelayerResult).txId
+      : undefined
+    if (!txId) {
+      console.log('No txId received')
+    } else {
+      await pollUntilIndexed({ txId: txId }, token || '')
+    }
     /* Redirect user to their profile page (it is quite tricky to get the
       actual article ID, but would be nicer to redirect there I guess) */
     router.push('/profile/' + defaultProfile.handle)
